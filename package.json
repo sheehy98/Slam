@@ -14,9 +14,8 @@
   "dependencies": {
     "@socket.io/admin-ui": "^0.2.0",
     "fs": "^0.0.1-security",
-    "socket.io": "^4.4.1",
-    "socket.io-client": "^4.4.1",
     "nodemon": "^2.0.15",
-    "snowpack": "^3.8.8"
+    "socket.io": "^4.4.1",
+    "socket.io-client": "^4.4.1"
   }
 }
