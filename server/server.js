@@ -1,8 +1,9 @@
 const io = require('socket.io')(3000, {
   cors: {
-    origin: ['http://localhost:8080']
+    origin: ['http://localhost:8080', 'https://admin.socket.io/']
   },
 })
+const { instrument } = require("@socket.io/admin-ui")
 const fs = require('fs')
 
 io.on('connection', socket => {
@@ -60,3 +61,5 @@ io.on('connection', socket => {
   })
 })
 
+
+instrument(io, { auth: false })

@@ -30,6 +30,7 @@ let pnum = 0
 let selected = -1
 let index = 0
 let finished = 0
+let started = false
 
 function setLobby() {
   lobby.innerText = myLobby
@@ -42,8 +43,8 @@ function initLobby(keep) {
   for (let i = 0; i < 6; i++) {
     result += characters.charAt(Math.floor(Math.random() * characters.length))
   }
+  socket.emit('leaveLobby', myLobby)
   myLobby = result
-  socket.emit('leaveLobby', socket.id)
   socket.emit('joinLobby', myLobby)
   setLobby()
 }
@@ -107,6 +108,8 @@ function initWord() {
 }
 
 function reset() {
+  started = false
+  infoPopup.innerText = ""
   initLobby()
   initDeck()
   initWord()
@@ -115,31 +118,39 @@ function reset() {
 
 socket.on('wordList', (array) => {
   wordList = array
+  myLobby = socket.id
   reset()
 })
 
 socket.on('setPop', (population) => {
-  players = population
-  ready = 0
-  imReady = false
-  readyButton.innerText = "Ready Up"
-  readyButton.disabled = false
-  lobbySelect.disabled = false
-  setReadyCounter()
+  if (!started) {
+    players = population
+    ready = 0
+    imReady = false
+    readyButton.innerText = "Ready Up"
+    readyButton.disabled = false
+    lobbySelect.disabled = false
+    setReadyCounter()
+  }
 })
 
 socket.on('readyUp', () => {
-  ready = ready + 1
-  setReadyCounter()
-  if (ready === players) { startGame() }
+  if (!started) {
+    ready = ready + 1
+    setReadyCounter()
+    if (ready === players) { startGame() }
+  }
 })
 
 socket.on('readyDown', () => {
-  ready = ready - 1
-  setReadyCounter()
+  if (!started) {
+    ready = ready - 1
+    setReadyCounter()
+  }
 })
 
 function startGame() {
+  started = true
   readyButton.disabled = true
   lobbySelect.disabled = true
   infoPopup.innerText = "All players are ready, starting the game"
@@ -168,13 +179,13 @@ function startGame() {
 }
 
 function setStart() {
-  word = wordList[Math.floor(Math.random()*wordList.length)].toUpperCase().substring(0, 4)
+  word = wordList[Math.floor(Math.random() * wordList.length)].toUpperCase().substring(0, 4)
   initWord()
 }
 
 function dealCards() {
   hand = []
-  for (let i = 0; i < deck.length; i++) {
+  for (let i = 0; i < deck.length/20; i++) {
     if (i % players === pnum) {
       hand.push(deck[i])
     }
@@ -231,20 +242,20 @@ function playGame() {
   }, 1000)
   for (let i = 0; i < hand.length; i++) {
     const card = document.getElementById("card" + i.toString())
-    card.addEventListener('click', () => {
+    card.onclick = () => {
       if (selected !== -1) {
         const lastCard = document.getElementById("card" + selected.toString())
         lastCard.style.backgroundColor = "aliceblue"
       }
       card.style.backgroundColor = "lightgrey"
       selected = i
-    })
+    }
   }
   for (let i = 0; i < 4; i++) {
     myLetters[i].style.backgroundColor = "aliceblue"
     myLetters[i].innerText = "_"
   }
-  document.addEventListener('keydown', (e) => {
+  document.onkeydown = (e) => {
     e.preventDefault()
     const characters = 'abcdefghijklmnopqrstuvwxyz'
     if (e.key === "Backspace") {
@@ -269,6 +280,7 @@ function playGame() {
         }
         myWord = myWord + myLetters[i].innerText
       }
+      alert("same: " + same.toString() + ", swapped: " + swapped.toString() + myWord + ": " + checkWord(myWord).toString())
       if (same === 3 && swapped === 1 && checkWord(myWord)) {
         const card = document.getElementById("card" + selected.toString())
         while (card.firstChild) {
@@ -306,31 +318,25 @@ function playGame() {
         index = index + 1
       }
     }
-  })
+  }
 }
 
 socket.on('newWord', (newWord) => {
   word = newWord
   if (finished === hand.length) {
     socket.emit('win', myLobby)
-    lose()
-    infoPopup.innerText = 'You Win!'
   }
   initWord()
 })
 
-function lose() {
-  infoPopup.innerText = 'You Lose!'
+function end() {
+  if (finished === hand.length) { infoPopup.innerText = 'You Win!' }
+  else { infoPopup.innerText = 'You Lose!' }
   document.onkeydown = () => { }
-  for (let i = 0; i < hand.length; i++) {
-    const card = document.getElementById("card" + i.toString())
-    while (card.firstChild) {
-      card.removeChild(card.lastChild);
-    }
-    card.style.backgroundColor = "grey"
-    card.onclick = () => { }
+  while (handPopup.firstChild) {
+    handPopup.removeChild(handPopup.lastChild);
   }
-  setTimeout(reset(), 2000)
+  setTimeout(reset, 2000)
 }
 
-socket.on('lose', () => { lose() })
+socket.on('lose', () => { end() })
