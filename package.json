@@ -3,18 +3,19 @@
   "version": "1.0.0",
   "main": "scripts.js",
   "scripts": {
+    "init": "snowpack init",
     "start": "snowpack dev",
-    "devStart": "nodemon server.js"
+    "devStart": "nodemon server.js",
+    "heroku-prebuild": "npm install --dev"
   },
   "keywords": [],
   "devDependencies": {
     "nodemon": "^2.0.15",
-    "snowpack": "^3.8.8"
+    "snowpack": "3.0"
   },
   "dependencies": {
     "@socket.io/admin-ui": "^0.2.0",
     "fs": "^0.0.1-security",
-    "nodemon": "^2.0.15",
     "socket.io": "^4.4.1",
     "socket.io-client": "^4.4.1"
   }
