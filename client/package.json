@@ -1,0 +1,15 @@
+{
+  "devDependencies": {
+    "snowpack": "^3.3.7"
+  },
+  "name": "slam",
+  "version": "1.0.0",
+  "main": "scripts.js",
+  "scripts": {
+    "start": "snowpack dev"
+  },
+  "keywords": [],
+  "dependencies": {
+    "socket.io-client": "^4.4.1"
+  }
+}
