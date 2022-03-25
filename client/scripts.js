@@ -72,8 +72,13 @@ readyButton.addEventListener('click', () => {
     pnum = ready
     readyButton.innerText = 'Unready'
     socket.emit('readyUp', myLobby)
+    socket.emit("deck", myLobby, deck)
     setReadyCounter()
   }
+})
+
+socket.on('deck', (array, text) => {
+  deck = array
 })
 
 function initDeck() {
@@ -88,30 +93,18 @@ function initDeck() {
     .sort((a, b) => a.sort - b.sort)
     .map(({ value }) => value)
   deck = shuffled
-  socket.emit("deck", myLobby, deck)
 }
-
-socket.on('deck', (array) => {
-  deck = array
-})
 
 function initWord() {
   for (let i = 0; i < word.length; i++) {
-    for (let j = 0; j < deck.length; j++) {
-      if (deck[j].includes(word.charAt(i))) {
-        gameLetters[i].innerText = word.charAt(i)
-        deck.splice(j, 1)
-        break
-      }
-    }
+    gameLetters[i].innerText = word.charAt(i)
   }
 }
 
 function reset() {
   started = false
-  infoPopup.innerText = ""
+  infoPopup.innerText = "Swap a card with one from the shared word to use it\nClick card to choose it, type word, enter to submit\nUse either letter on the card\nFirst player to use all their cards wins!"
   initLobby()
-  initDeck()
   initWord()
   initDeck()
 }
@@ -180,12 +173,17 @@ function startGame() {
 
 function setStart() {
   word = wordList[Math.floor(Math.random() * wordList.length)].toUpperCase().substring(0, 4)
-  initWord()
+  socket.emit("choose", myLobby, word)
 }
+
+socket.on('choose', (text) => {
+  word = text
+  initWord()
+})
 
 function dealCards() {
   hand = []
-  for (let i = 0; i < deck.length/20; i++) {
+  for (let i = 0; i < deck.length; i++) {
     if (i % players === pnum) {
       hand.push(deck[i])
     }
@@ -280,7 +278,7 @@ function playGame() {
         }
         myWord = myWord + myLetters[i].innerText
       }
-      alert("same: " + same.toString() + ", swapped: " + swapped.toString() + myWord + ": " + checkWord(myWord).toString())
+      //alert("same: " + same.toString() + ", swapped: " + swapped.toString() + myWord + ": " + checkWord(myWord).toString())
       if (same === 3 && swapped === 1 && checkWord(myWord)) {
         const card = document.getElementById("card" + selected.toString())
         while (card.firstChild) {

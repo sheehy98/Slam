@@ -32,6 +32,10 @@ io.on('connection', socket => {
       socket.nsp.to(text).emit("deck", array)
     })
 
+    socket.on('choose', (text, text2) => {
+      socket.nsp.to(text).emit("choose", text2)
+    })
+
     socket.on('checkPop', (text) => {
       const clients = Array.from(io.sockets.adapter.rooms.get(text)).length
       socket.nsp.to(text).emit("setPop", clients)
@@ -50,7 +54,7 @@ io.on('connection', socket => {
     })
 
     socket.on('win', (text) => {
-      socket.to(text).emit("lose")
+      socket.nsp.to(text).emit("lose")
     })
 
     socket.on('disconnecting', () => {
