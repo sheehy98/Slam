@@ -1,4 +1,4 @@
-const socket = io('http://slam-game.herokuapp.com/')
+const socket = io('https://slam-game.herokuapp.com/')
 
 const lobby = document.getElementById("lobby")
 const lobbyInput = document.getElementById("lobbyInput")
