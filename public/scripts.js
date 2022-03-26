@@ -104,6 +104,7 @@ function initWord() {
 
 function reset(keep=false) {
   started = false
+  finished = 0
   infoPopup.innerText = "Swap a card with one from the shared word to use it\nClick card to choose it, type word, enter to submit\nUse either letter on the card\nFirst player to use all their cards wins!"
   initLobby(keep)
   initWord()
