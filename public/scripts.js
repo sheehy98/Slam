@@ -119,6 +119,10 @@ function reset(keep=false) {
                         You can play a card on top of any letter in the current word to make a new word\n
                         To play a card, select it, type the word you want to play, and hit enter!\n
                         Turn the switch on to enable easy mode, where words can be played more than once`
+  for (let i = 0; i < 4; i++) {
+    myLetters[i].style.backgroundColor = "grey"
+    myLetters[i].innerText = ""
+  }
   initLobby(keep)
   initWord()
   initDeck()
