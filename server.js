@@ -66,6 +66,10 @@ io.on('connection', socket => {
       socket.nsp.to(lobby).emit("newWord", text)
     })
 
+    socket.on('newWordHard', (lobby, text, text2) => {
+      socket.nsp.to(lobby).emit("newWordHard", text, text2)
+    })
+
     socket.on('win', (text) => {
       socket.nsp.to(text).emit("lose")
     })

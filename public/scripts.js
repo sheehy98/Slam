@@ -17,6 +17,7 @@ for (let i = 0; i < 4; i++) {
   myLetters.push(document.getElementById("ci" + i.toString()))
 }
 
+let hard = true
 let wordList = []
 let word = "SLAM"
 let deck = []
@@ -281,6 +282,7 @@ function playGame() {
         myWord = myWord + myLetters[i].innerText
       }
       //alert("same: " + same.toString() + ", swapped: " + swapped.toString() + myWord + ": " + checkWord(myWord).toString())
+      const oldWord = word.substring(0)
       if (same === 3 && swapped === 1 && checkWord(myWord)) {
         const card = document.getElementById("card" + selected.toString())
         while (card.firstChild) {
@@ -295,7 +297,12 @@ function playGame() {
           myLetters[i].style.backgroundColor = "aliceblue"
           myLetters[i].innerText = "_"
         }
-        socket.emit('newWord', myLobby, word)
+        if (hard) {
+          socket.emit('newWordHard', myLobby, word, oldWord)
+        }
+        else {
+          socket.emit('newWord', myLobby, word)
+        }
       }
       else {
         index = 0
@@ -326,8 +333,27 @@ socket.on('newWord', (newWord) => {
   if (finished === hand.length) {
     socket.emit('win', myLobby)
   }
+  else if (stalemate()) {
+
+  }
   initWord()
 })
+
+socket.on('newWordHard', (newWord, oldWord) => {
+  word = newWord
+  wordList.splice(wordList.indexOf(oldWord))
+  if (finished === hand.length) {
+    socket.emit('win', myLobby)
+  }
+  else if (stalemate()) {
+
+  }
+  initWord()
+})
+
+function stalemate() {
+
+}
 
 function end() {
   if (finished === hand.length) { infoPopup.innerText = 'You Win!' }
