@@ -1,1 +1,1 @@
-worker: nodemon server.js
+web: npm devStart
