@@ -113,9 +113,9 @@ function initWord() {
 function reset(keep=false) {
   started = false
   finished = 0
-  infoPopup.innerText = `Join a lobby by typing the code and clicking join
+  infoPopup.innerText = `Join a lobby by typing something in the lobby textbox and clicking join
                         When the game starts, a random word will appear in the center
-                        You will be dealt cards with letters on them, play them all to win
+                        You will be dealt cards with letters on them, play them all to win!
                         You can play a card on top of any letter in the current word to make a new word
                         To play a card, select it, type the word you want to play, and hit enter!
                         Turn the switch on to enable easy mode, where words can be played more than once`
