@@ -87,12 +87,6 @@ body {
     text-align: center;
     color: slategray;
     display: grid;
-    grid-template-areas: 
-    "a c c c"
-    "c b b c"
-    "c b b c"
-    "c b b c"
-    "c c c c";
 }
 
 .mini{
