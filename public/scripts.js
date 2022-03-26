@@ -1,4 +1,4 @@
-const socket = io('https://slam-game.herokuapp.com/')
+const socket = io('https://slam-game.herokuapp.com/', { transports : ['websocket'] })
 
 const lobby = document.getElementById("lobby")
 const lobbyInput = document.getElementById("lobbyInput")
