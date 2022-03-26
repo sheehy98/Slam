@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport"  content="width=device-width, initial-scale=1">
+  <title>Slam</title>
+  <meta charset="utf-8">
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="./scripts.js" type="module"></script>
+</head>
+
+<body>
+  <div class="top">
+    <label class="bar" for="lobbyInput">Lobby:</label><br>
+    <input class="bar margin" type="text" id="lobbyInput" name="lobbyInput"><br>
+    <button class="bar" id="lobbySelect">Join</button>
+    <button class="bar" id="readyButton">Ready Up</button>
+  </div>
+  <div class="top">
+    <h4>Current Lobby:</h4>
+    <h4 class="margin" id="lobby"></h4>
+    <div id="readyDiv">
+      <h4 id="readyText">Players Ready:</h4>
+      <h4 class="margin" id="readyCounter"></h4>
+    </div>
+  </div>
+  <h1 id="info"></h1>
+  <div class="center" id="center">
+    <div class="centerLetter" id="c0"></div>
+    <div class="centerLetter" id="c1"></div>
+    <div class="centerLetter" id="c2"></div>
+    <div class="centerLetter" id="c3"></div>
+  </div>
+  <div class="centerInput" id="centerInput">
+    <div class="centerInputLetter" id="ci0"></div>
+    <div class="centerInputLetter" id="ci1"></div>
+    <div class="centerInputLetter" id="ci2"></div>
+    <div class="centerInputLetter" id="ci3"></div>
+  </div>
+  <div class="hand" id="hand"></div>
+</body>
+</html>

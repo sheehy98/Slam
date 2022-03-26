@@ -1,0 +1,103 @@
+body {
+    background-color: grey;
+}
+
+.top{
+    display: flex;
+}
+
+.bar{
+    display: inline-block;
+}
+
+#readyDiv{
+    margin-left: auto;
+    margin-right: 5%;
+    display: flex;
+}
+
+#info{
+    text-align: center;
+}
+
+#readyButton{
+    margin-left: auto;
+    margin-right: 2%
+}
+
+.margin{
+    margin-left: 7px;
+}
+
+.center{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    column-gap: 15px;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.centerInput{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    column-gap: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.centerLetter{
+    width: 80px;
+    height: 120px;
+    border-radius: 10px;
+    background-color: aliceblue;
+    text-align: center;
+    color: slategray;
+    font-size: 4em;
+    line-height: 120px;
+}
+
+.centerInputLetter{
+    width: 80px;
+    height: 120px;
+    border-radius: 10px;
+    background-color: grey;
+    text-align: center;
+    color: slategray;
+    font-size: 4em;
+    line-height: 120px;
+}
+
+.hand{
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translate(-50%);
+    display: grid;
+    column-gap: 2px;
+}
+
+.card{
+    border-radius: 5px;
+    background-color: aliceblue;
+    text-align: center;
+    color: slategray;
+    display: grid;
+    grid-template-areas: 
+    "a c c c"
+    "b b b b"
+    "b b b b"
+    "b b b b"
+    "c c c c";
+}
+
+.mini{
+    font-size: 10px;
+}
+
+.big{
+    font-size: 25px;
+}
