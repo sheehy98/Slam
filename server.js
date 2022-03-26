@@ -66,6 +66,10 @@ io.on('connection', socket => {
       socket.nsp.to(lobby).emit("newWord", text, pnum, hand)
     })
 
+    socket.on('newMode', (text, bool) => {
+      socket.to(text).emit("newMode", bool)
+    })
+
     socket.on('newWordHard', (lobby, text, text2, pnum, hand) => {
       socket.nsp.to(lobby).emit("newWordHard", text, text2, pnum, hand)
     })

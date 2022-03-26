@@ -8,6 +8,7 @@ const readyCounter = document.getElementById("readyCounter")
 const infoPopup = document.getElementById("info")
 const handPopup = document.getElementById("hand")
 const modeSwitch = document.getElementById("modeSelect")
+modeSwitch.onclick = () => { socket.emit("newMode", myLobby, modeSwitch.value) }
 
 let gameLetters = []
 for (let i = 0; i < 4; i++) {
@@ -31,6 +32,11 @@ let selected = -1
 let index = 0
 let finished = 0
 let started = false
+
+
+socket.on('newMode', (bool) => {
+  if (!started) { modeSwitch.value = bool }
+})
 
 function setLobby() {
   lobby.innerText = myLobby
