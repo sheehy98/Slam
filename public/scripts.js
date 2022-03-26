@@ -8,7 +8,7 @@ const readyCounter = document.getElementById("readyCounter")
 const infoPopup = document.getElementById("info")
 const handPopup = document.getElementById("hand")
 const modeSwitch = document.getElementById("modeSelect")
-modeSwitch.onclick = () => { socket.emit("newMode", myLobby, modeSwitch.value) }
+modeSwitch.onchange = () => { socket.emit("newMode", myLobby, modeSwitch.value) }
 
 let gameLetters = []
 for (let i = 0; i < 4; i++) {
@@ -133,6 +133,7 @@ socket.on('setPop', (population) => {
     readyButton.innerText = "Ready Up"
     readyButton.disabled = false
     lobbySelect.disabled = false
+    modeSwitch.disabled = false
     setReadyCounter()
   }
 })
@@ -156,6 +157,7 @@ function startGame() {
   started = true
   readyButton.disabled = true
   lobbySelect.disabled = true
+  modeSwitch.disabled = true
   infoPopup.innerText = "All players are ready, starting the game"
   setTimeout(() => {
     setStart()
