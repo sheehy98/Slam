@@ -62,12 +62,12 @@ io.on('connection', socket => {
       socket.nsp.to(text).emit("readyDown")
     })
 
-    socket.on('newWord', (lobby, text) => {
-      socket.nsp.to(lobby).emit("newWord", text)
+    socket.on('newWord', (lobby, text, pnum, hand) => {
+      socket.nsp.to(lobby).emit("newWord", text, pnum, hand)
     })
 
-    socket.on('newWordHard', (lobby, text, text2) => {
-      socket.nsp.to(lobby).emit("newWordHard", text, text2)
+    socket.on('newWordHard', (lobby, text, text2, pnum, hand) => {
+      socket.nsp.to(lobby).emit("newWordHard", text, text2, pnum, hand)
     })
 
     socket.on('win', (text) => {

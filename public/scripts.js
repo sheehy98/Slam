@@ -298,10 +298,10 @@ function playGame() {
           myLetters[i].innerText = "_"
         }
         if (hard) {
-          socket.emit('newWordHard', myLobby, word, oldWord)
+          socket.emit('newWordHard', myLobby, word, oldWord, pnum, hand)
         }
         else {
-          socket.emit('newWord', myLobby, word)
+          socket.emit('newWord', myLobby, word, pnum, hand)
         }
       }
       else {
