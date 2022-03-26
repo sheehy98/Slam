@@ -1,4 +1,4 @@
 # Slam
 implement stalemate
-hard mode no repeats
+hard mode toggle
 show blank cards for opponents

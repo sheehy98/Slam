@@ -7,6 +7,7 @@ const readyButton = document.getElementById("readyButton")
 const readyCounter = document.getElementById("readyCounter")
 const infoPopup = document.getElementById("info")
 const handPopup = document.getElementById("hand")
+const modeSwitch = document.getElementById("modeSelect")
 
 let gameLetters = []
 for (let i = 0; i < 4; i++) {
@@ -17,7 +18,6 @@ for (let i = 0; i < 4; i++) {
   myLetters.push(document.getElementById("ci" + i.toString()))
 }
 
-let hard = true
 let wordList = []
 let word = "SLAM"
 let deck = []
@@ -123,6 +123,7 @@ socket.on('setPop', (population) => {
     players = population
     ready = 0
     imReady = false
+    if (!started) { modeSwitch.value = false }
     readyButton.innerText = "Ready Up"
     readyButton.disabled = false
     lobbySelect.disabled = false
@@ -297,7 +298,7 @@ function playGame() {
           myLetters[i].style.backgroundColor = "aliceblue"
           myLetters[i].innerText = "_"
         }
-        if (hard) {
+        if (modeSwitch.value) {
           socket.emit('newWordHard', myLobby, word, oldWord, pnum, hand)
         }
         else {
