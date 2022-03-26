@@ -113,7 +113,12 @@ function initWord() {
 function reset(keep=false) {
   started = false
   finished = 0
-  infoPopup.innerText = "Swap a card with one from the shared word to use it\nClick card to choose it, type word, enter to submit\nUse either letter on the card\nFirst player to use all their cards wins!"
+  infoPopup.innerText = `Join a lobby by typing the code and clicking join\n
+                        When the game starts, a random word will appear in the center\n
+                        You will be dealt cards with letters on them, play them all to win\n'
+                        You can play a card on top of any letter in the current word to make a new word\n
+                        To play a card, select it, type the word you want to play, and hit enter!\n
+                        Turn the switch on to enable easy mode, where words can be played more than once`
   initLobby(keep)
   initWord()
   initDeck()
