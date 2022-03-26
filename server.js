@@ -1,13 +1,24 @@
-const io = require('socket.io')(process.env.PORT || 3000, {
-  cors: {
-    origin: ['http://localhost:8080', 'https://admin.socket.io/']
-  },
-})
+const express = require('express');
+const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+const port = process.env.PORT || 3000;
+
+app.use(express.static("public"));
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
+});
+
+http.listen(port, () => {
+  console.log(`Socket.IO server running at http://localhost:${port}/`);
+});
+
 const { instrument } = require("@socket.io/admin-ui")
 const fs = require('fs')
 
 io.on('connection', socket => {
-  fs.readFile("words.txt", function (err, text) {
+  fs.readFile("public/words.txt", function (err, text) {
     if(err) throw err;
     let wordList = text.toString().split("\n").map(s => s.substring(0, 4).toUpperCase())
     socket.emit('wordList', wordList)
