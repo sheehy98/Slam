@@ -238,11 +238,13 @@ function createCard(num, width, height) {
 
   const miniChar = document.createElement('div')
   miniChar.classList.add("mini")
+  miniChar.style.gridArea = 'a'
   miniChar.innerText = hand[num][0]
   nextCard.appendChild(miniChar)
 
   const bigChar = document.createElement('div')
   bigChar.classList.add("big")
+  miniChar.style.gridArea = 'b'
   bigChar.innerText = hand[num][1]
   nextCard.appendChild(bigChar)
   return nextCard
