@@ -1,9 +1,8 @@
-const express = require('express');
-const favicon = require("serve-favicon")
-const app = express();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
-const port = process.env.PORT || 3000;
+const express = require('express'),
+      app = express(),
+      http = require('http').createServer(app),
+      io = require('socket.io').listen(http),
+      favicon = require("serve-favicon")
 
 app.use(express.static("public"));
 app.use(favicon(__dirname + "/slam.ico"));
@@ -12,7 +11,7 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
-http.listen(port, () => {
+http.listen(process.env.PORT || 3000, () => {
   console.log(`Socket.IO server running at http://localhost:${port}/`);
 });
 
