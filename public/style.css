@@ -89,9 +89,9 @@ body {
     display: grid;
     grid-template-areas: 
     "a c c c"
-    "b b b b"
-    "b b b b"
-    "b b b b"
+    "c b b c"
+    "c b b c"
+    "c b b c"
     "c c c c";
 }
 

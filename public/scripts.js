@@ -115,7 +115,7 @@ function reset(keep=false) {
   finished = 0
   infoPopup.innerText = `Join a lobby by typing something in the lobby textbox and clicking join
                         When the game starts, a random word will appear in the center
-                        You will be dealt cards with letters on them, play them all to win!
+                        You will be dealt cards with two letters on them, use either one during gameplay 
                         You can play a card on top of any letter in the current word to make a new word
                         To play a card, select it, type the word you want to play, and hit enter!
                         Turn the switch on to enable easy mode, where words can be played more than once`
@@ -239,7 +239,7 @@ function createCard(num, width, height) {
   const miniChar = document.createElement('div')
   miniChar.classList.add("mini")
   miniChar.style.gridArea = 'a'
-  miniChar.innerText = hand[num][0]
+  miniChar.innerText = hand[num][0] === '?' ? hand[num][0] : ''
   nextCard.appendChild(miniChar)
 
   const bigChar = document.createElement('div')
