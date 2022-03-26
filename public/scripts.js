@@ -307,7 +307,7 @@ function playGame() {
           myLetters[i].style.backgroundColor = "aliceblue"
           myLetters[i].innerText = "_"
         }
-        if (modeSwitch.checked) {
+        if (!modeSwitch.checked) {
           socket.emit('newWordHard', myLobby, word, oldWord, pnum, hand)
         }
         else {
