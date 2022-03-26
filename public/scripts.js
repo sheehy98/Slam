@@ -341,7 +341,7 @@ socket.on('newWord', (newWord) => {
 
 socket.on('newWordHard', (newWord, oldWord) => {
   word = newWord
-  wordList.splice(wordList.indexOf(oldWord))
+  wordList.splice(wordList.indexOf(oldWord), 1)
   if (finished === hand.length) {
     socket.emit('win', myLobby)
   }
