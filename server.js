@@ -6,7 +6,7 @@ const express = require('express'),
       port = process.env.PORT || 3000;
 
 app.use(express.static("public"));
-app.use(favicon(__dirname + "/slam.ico"));
+app.use(favicon(__dirname + "/public/slam.ico"));
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
