@@ -1,8 +1,9 @@
 const express = require('express'),
-      app = express(),
-      http = require('http').createServer(app),
-      io = require('socket.io').listen(http),
       favicon = require("serve-favicon")
+      app = express();
+      http = require('http').Server(app);
+      io = require('socket.io')(http);
+      port = process.env.PORT || 3000;
 
 app.use(express.static("public"));
 app.use(favicon(__dirname + "/slam.ico"));
@@ -11,7 +12,7 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
-http.listen(process.env.PORT || 3000, () => {
+http.listen(port, () => {
   console.log(`Socket.IO server running at http://localhost:${port}/`);
 });
 
