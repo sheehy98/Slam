@@ -1,1 +1,1 @@
-web: npm run devStart
+web: nodemon server.js
