@@ -36,15 +36,17 @@ function setLobby() {
   socket.emit("checkPop", myLobby)
 }
 
-function initLobby(keep) {
+function initLobby(keep = false) {
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
   let result = ""
   for (let i = 0; i < 6; i++) {
     result += characters.charAt(Math.floor(Math.random() * characters.length))
   }
-  socket.emit('leaveLobby', myLobby)
-  myLobby = result
-  socket.emit('joinLobby', myLobby)
+  if (!keep) {
+    socket.emit('leaveLobby', myLobby)
+    myLobby = result
+    socket.emit('joinLobby', myLobby)
+  }
   setLobby()
 }
 
@@ -100,10 +102,10 @@ function initWord() {
   }
 }
 
-function reset() {
+function reset(keep=false) {
   started = false
   infoPopup.innerText = "Swap a card with one from the shared word to use it\nClick card to choose it, type word, enter to submit\nUse either letter on the card\nFirst player to use all their cards wins!"
-  initLobby()
+  initLobby(keep)
   initWord()
   initDeck()
 }
@@ -333,7 +335,7 @@ function end() {
   while (handPopup.firstChild) {
     handPopup.removeChild(handPopup.lastChild);
   }
-  setTimeout(reset, 2000)
+  setTimeout(() => { reset(true) }, 2000)
 }
 
 socket.on('lose', () => { end() })
