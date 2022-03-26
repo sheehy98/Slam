@@ -8,7 +8,7 @@ const readyCounter = document.getElementById("readyCounter")
 const infoPopup = document.getElementById("info")
 const handPopup = document.getElementById("hand")
 const modeSwitch = document.getElementById("modeSelect")
-modeSwitch.onchange = () => { socket.emit("newMode", myLobby, modeSwitch.value) }
+modeSwitch.onchange = () => { socket.emit("newMode", myLobby, modeSwitch.checked) }
 
 let gameLetters = []
 for (let i = 0; i < 4; i++) {
@@ -35,7 +35,8 @@ let started = false
 
 
 socket.on('newMode', (bool) => {
-  if (!started) { modeSwitch.value = bool }
+  if (!started) { modeSwitch.checked = bool }
+  console.log(modeSwitch.checked)
 })
 
 function setLobby() {
@@ -129,7 +130,7 @@ socket.on('setPop', (population) => {
     players = population
     ready = 0
     imReady = false
-    if (!started) { modeSwitch.value = false }
+    if (!started) { modeSwitch.checked = false }
     readyButton.innerText = "Ready Up"
     readyButton.disabled = false
     lobbySelect.disabled = false
@@ -306,7 +307,7 @@ function playGame() {
           myLetters[i].style.backgroundColor = "aliceblue"
           myLetters[i].innerText = "_"
         }
-        if (modeSwitch.value) {
+        if (modeSwitch.checked) {
           socket.emit('newWordHard', myLobby, word, oldWord, pnum, hand)
         }
         else {
