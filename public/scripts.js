@@ -287,6 +287,10 @@ function playGame() {
         myLetters[0].innerText = "_"
       }
     }
+    else if (e.key === "Enter" && selected === -1) {
+      infoPopup.innerText = 'No card selected!'
+      setTimeout(() => { if (infoPopup.innerText === 'No card selected!') { infoPopup.innerText = '' } }, 1000)
+    }
     else if (e.key === "Enter" && selected !== -1 && index === 4) {
       let myWord = ""
       let same = 0
