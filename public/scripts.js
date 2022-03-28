@@ -114,6 +114,7 @@ function initWord() {
 function reset(keep=false) {
   started = false
   finished = 0
+  index = 0
   infoPopup.innerText = `Join a lobby by typing something in the lobby textbox and clicking join
                         When the game starts, a random word will appear in the center
                         You will be dealt cards with two letters on them, use either one during gameplay 
