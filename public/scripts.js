@@ -20,6 +20,7 @@ for (let i = 0; i < 4; i++) {
 }
 
 let wordList = []
+let wordListTotal = []
 let word = "SLAM"
 let deck = []
 let hand = []
@@ -123,6 +124,7 @@ function reset(keep=false) {
     myLetters[i].style.backgroundColor = "grey"
     myLetters[i].innerText = ""
   }
+  wordList = wordListTotal.slice(0)
   initLobby(keep)
   initWord()
   initDeck()
@@ -130,6 +132,7 @@ function reset(keep=false) {
 
 socket.on('wordList', (array) => {
   wordList = array
+  wordListTotal = wordList.slice(0)
   myLobby = socket.id
   reset()
 })
